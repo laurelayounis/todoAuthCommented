@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Todos</h1>
+    <ul>
+    <% todos.forEach( el => { %>       <% /* %> el represents the element its just the parameter that's holdoing each of our indiviudal documents
+                                          el is holding an object that's coming from our collection in our db
+                                          since its an object we can grab the properties off of our obj, we're grabbing the data id prop
+                                          there will be a data id and the value that came out of the document its _id because thats
+                                          the property on the document made automatically by mongo; remember this is just a fancy for loop
+                                          and all its doing is just looping through all of the documents
+                                         <% */ %>
+        <li class='todoItem' data-id='<%=el._id%>'>     
+                                         <% /* %>
+                                            using a terinary to say: does the document have a completed property of true? if id does give it
+                                            the class of completed, if it doesnt give it the class of not (can look at css to see what our 
+                                            classes do, we're toggling the classes using our terinary; it also updates them in our mongoDb)
+                                        <% */ %>
+            
+        <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+            <span class='del'> Delete </span>
+        </li>
+    <% }) %>    
+    </ul>
+                                        <% /* %>
+                                         we're using the left value here (can see where left came from in our todos model when we used destructing)
+                                         its allowing us to automatically plug in the value as a varaible after : of how many items are left to be
+                                         completed
+                                         <% */ %>
+   <h2><% user.userName %> has <%= left %> things left to do.</h2>
+
+    <form action="/todos/createTodo" method='POST'>
+        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <input type="submit">
+    </form>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
